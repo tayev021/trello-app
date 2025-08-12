@@ -1,0 +1,28 @@
+import type { ReactNode } from 'react';
+import { useMenuContext } from '../../hooks/useMenuContext';
+
+interface ButtonProps {
+  disabled: boolean;
+  onClick?: () => void;
+  children: ReactNode;
+}
+
+export function Button({ disabled, onClick, children }: ButtonProps) {
+  const { close } = useMenuContext();
+
+  function handleClick() {
+    onClick?.();
+    close();
+  }
+  return (
+    <li>
+      <button
+        className="flex items-center gap-1 p-1 rounded-md hover:bg-zinc-200 active:bg-blue-200 cursor-pointer disabled:cursor-no-drop disabled:active:bg-zinc-200"
+        disabled={disabled}
+        onClick={handleClick}
+      >
+        {children}
+      </button>
+    </li>
+  );
+}

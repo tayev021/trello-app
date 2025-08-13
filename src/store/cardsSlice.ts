@@ -3,6 +3,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { ICardState } from '../types/ICardState';
 import type { ICard } from '../types/ICard';
 import type { IBoard } from '../types/IBoard';
+import type { ITask } from '../types/ITask';
 
 const initialState: ICardState = {
   cards: [
@@ -10,11 +11,46 @@ const initialState: ICardState = {
       id: uuid(),
       title: 'Test first card',
       boardId: 1,
+      tasks: [
+        {
+          id: uuid(),
+          name: 'test task 1',
+          isDone: true,
+        },
+        {
+          id: uuid(),
+          name: 'test task 2',
+          isDone: false,
+        },
+        {
+          id: uuid(),
+          name: 'test task 3',
+          isDone: true,
+        },
+        {
+          id: uuid(),
+          name: 'test task 4 test task 4 test task 4',
+          isDone: false,
+        },
+      ],
     },
     {
       id: uuid(),
       title: 'Test second card',
+      boardId: 1,
+      tasks: [
+        {
+          id: uuid(),
+          name: 'test task 5',
+          isDone: true,
+        },
+      ],
+    },
+    {
+      id: uuid(),
+      title: 'Test third card',
       boardId: 2,
+      tasks: [],
     },
   ],
 };
@@ -22,6 +58,16 @@ const initialState: ICardState = {
 interface IUpdateCardBoardPayload {
   id: ICard['id'];
   boardId: IBoard['id'];
+}
+
+interface IToggleTaskStatusPayload {
+  id: ICard['id'];
+  taskId: ITask['id'];
+}
+
+interface IRemoveTaskPayload {
+  id: ICard['id'];
+  taskId: ITask['id'];
 }
 
 const cardsSlice = createSlice({
@@ -41,8 +87,34 @@ const cardsSlice = createSlice({
           : card
       );
     },
+    toggleTaskStatus(state, action: PayloadAction<IToggleTaskStatusPayload>) {
+      const card = state.cards.find((card) => card.id === action.payload.id);
+
+      if (!card) return;
+
+      card.tasks = card.tasks.map((task) =>
+        task.id === action.payload.taskId
+          ? { ...task, isDone: !task.isDone }
+          : task
+      );
+    },
+    removeTask(state, action: PayloadAction<IRemoveTaskPayload>) {
+      const card = state.cards.find((card) => card.id === action.payload.id);
+
+      if (!card) return;
+
+      card.tasks = card.tasks.filter(
+        (task) => task.id !== action.payload.taskId
+      );
+    },
   },
 });
 
 export const cardsReducer = cardsSlice.reducer;
-export const { createCard, removeCard, updateCardBoard } = cardsSlice.actions;
+export const {
+  createCard,
+  removeCard,
+  updateCardBoard,
+  toggleTaskStatus,
+  removeTask,
+} = cardsSlice.actions;

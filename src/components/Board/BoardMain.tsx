@@ -7,7 +7,10 @@ interface BoardHeaderProps {
 
 export function BoardMain({ cards }: BoardHeaderProps) {
   return (
-    <main className="px-4 flex flex-col justify-center">
+    <main
+      className="px-4 flex flex-col"
+      style={cards.length === 0 ? { justifyContent: 'center' } : {}}
+    >
       {cards.length === 0 ? (
         <p className="italic text-zinc-400 text-center">
           No cards on this board

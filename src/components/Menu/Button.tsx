@@ -2,9 +2,9 @@ import type { ReactNode } from 'react';
 import { useMenuContext } from '../../hooks/useMenuContext';
 
 interface ButtonProps {
-  disabled: boolean;
-  onClick?: () => void;
+  disabled?: boolean;
   children: ReactNode;
+  onClick?: () => void;
 }
 
 export function Button({ disabled, onClick, children }: ButtonProps) {

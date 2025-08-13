@@ -1,4 +1,6 @@
 import type { ICard } from '../../types/ICard';
+import { CardHeader } from './CardHeader';
+import { CardMain } from './CardMain';
 
 interface CardProps {
   card: ICard;
@@ -15,7 +17,8 @@ export function Card({ card }: CardProps) {
       draggable="true"
       onDragStart={handleDragStart}
     >
-      <h4 className="font-normal">{card.title}</h4>
+      <CardHeader card={card} />
+      <CardMain card={card} />
     </div>
   );
 }

@@ -5,7 +5,7 @@ interface IMenuContext {
   menuId: string;
   open: (menuId: string) => void;
   close: () => void;
-  position: IPosition | null;
+  position: IPosition;
   setPosition: (position: IPosition) => void;
 }
 

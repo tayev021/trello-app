@@ -11,7 +11,7 @@ interface MenuProps {
 
 export function Menu({ children }: MenuProps) {
   const [menuId, setMenuId] = useState<string>('');
-  const [position, setPosition] = useState<IPosition | null>(null);
+  const [position, setPosition] = useState<IPosition>({ x: 0, y: 0 });
 
   const open = setMenuId;
   const close = () => setMenuId('');

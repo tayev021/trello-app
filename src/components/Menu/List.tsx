@@ -14,12 +14,17 @@ export function List({ id, children }: ListProps) {
 
   if (menuId !== id) return null;
 
-  const top = `${position?.y || 0}px`;
-  const left = `${Math.round(position?.x || 0)}px`;
+  const bodyRect = document.body.getBoundingClientRect();
+
+  const top = `${position.y}px`;
+  const left =
+    position.x + 150 > bodyRect.width
+      ? `${Math.round(bodyRect.width - 160)}px`
+      : `${Math.round(position.x)}px`;
 
   return createPortal(
     <ul
-      className="fixed flex flex-col gap-1 p-1 rounded-md bg-[#FFFFFF] shadow-[0_1px_3px_rgba(80,80,80,0.6)]"
+      className="w-[150px] fixed flex flex-col gap-1 p-1 rounded-md bg-[#FFFFFF] shadow-[0_1px_3px_rgba(80,80,80,0.6)]"
       style={{ top: top, left: left }}
       ref={ref}
     >

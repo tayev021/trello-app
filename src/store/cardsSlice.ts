@@ -10,7 +10,7 @@ const initialState: ICardState = {
     {
       id: uuid(),
       title: 'Test first card',
-      boardId: 1,
+      boardId: '1',
       tasks: [
         {
           id: uuid(),
@@ -37,7 +37,7 @@ const initialState: ICardState = {
     {
       id: uuid(),
       title: 'Test second card',
-      boardId: 1,
+      boardId: '1',
       tasks: [
         {
           id: uuid(),
@@ -49,7 +49,7 @@ const initialState: ICardState = {
     {
       id: uuid(),
       title: 'Test third card',
-      boardId: 2,
+      boardId: '2',
       tasks: [],
     },
   ],

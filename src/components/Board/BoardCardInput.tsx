@@ -1,18 +1,18 @@
 import { useDispatch } from 'react-redux';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
-import { useState, type ChangeEvent, type FormEvent } from 'react';
-import type { IBoard } from '../../types/IBoard';
 import { createCard } from '../../store/cardsSlice';
+import { useState, type ChangeEvent, type FormEvent } from 'react';
+import { useBoardContext } from '../../hooks/useBoardContext';
 
 interface BoardCardInputProps {
-  boardId: IBoard['id'];
   onClose: () => void;
 }
 
-export function BoardCardInput({ boardId, onClose }: BoardCardInputProps) {
+export function BoardCardInput({ onClose }: BoardCardInputProps) {
   const dispatch = useDispatch();
   const ref = useOutsideClick<HTMLFormElement>(onClose);
   const [cardTitleValue, setCardTitleValue] = useState('');
+  const { board } = useBoardContext();
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setCardTitleValue(event.target.value);
@@ -22,7 +22,7 @@ export function BoardCardInput({ boardId, onClose }: BoardCardInputProps) {
     event.preventDefault();
 
     if (cardTitleValue.length > 0) {
-      dispatch(createCard({ title: cardTitleValue, boardId: boardId }));
+      dispatch(createCard({ title: cardTitleValue, boardId: board.id }));
       onClose();
     }
   }

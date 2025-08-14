@@ -3,23 +3,35 @@ import { useDispatch } from 'react-redux';
 import { Menu } from '../Menu/Menu';
 import { Modal } from '../Modal/Modal';
 import { removeCard } from '../../store/cardsSlice';
-import { HiOutlineEllipsisHorizontal, HiOutlineTrash } from 'react-icons/hi2';
+import {
+  HiOutlineEllipsisHorizontal,
+  HiOutlinePlus,
+  HiOutlineTrash,
+} from 'react-icons/hi2';
 
 interface CardHeaderProps {
   card: ICard;
+  onStartAddingTask: () => void;
 }
 
-export function CardHeader({ card }: CardHeaderProps) {
+export function CardHeader({ card, onStartAddingTask }: CardHeaderProps) {
   const dispatch = useDispatch();
 
   return (
     <header
-      className="grid grid-cols-[1fr_min-content] gap-2"
+      className="grid grid-cols-[1fr_min-content_min-content] gap-2"
       style={card.tasks.length > 0 ? { marginBottom: '8px' } : {}}
     >
       <h4 className="font-normal whitespace-nowrap text-ellipsis overflow-hidden ">
         {card.title}
       </h4>
+
+      <button
+        className="w-6 h-6 flex justify-center items-center rounded-4xl text-lg text-zinc-600 hover:bg-[#FFFFFF] hover:shadow-[0_1px_3px_rgba(80,80,80,0.5)] cursor-pointer"
+        onClick={onStartAddingTask}
+      >
+        <HiOutlinePlus />
+      </button>
 
       <Menu.Toggler
         id={`card-${card.id}-menu`}

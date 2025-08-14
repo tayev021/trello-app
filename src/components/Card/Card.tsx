@@ -1,12 +1,16 @@
+import { useState } from 'react';
 import type { ICard } from '../../types/ICard';
 import { CardHeader } from './CardHeader';
 import { CardMain } from './CardMain';
+import { CardFooter } from './CardFooter';
 
 interface CardProps {
   card: ICard;
 }
 
 export function Card({ card }: CardProps) {
+  const [isAddingTask, setIsAddingTask] = useState(false);
+
   function handleDragStart(event: React.DragEvent<HTMLDivElement>) {
     event.dataTransfer.setData('text/plain', card.id);
   }
@@ -17,8 +21,11 @@ export function Card({ card }: CardProps) {
       draggable="true"
       onDragStart={handleDragStart}
     >
-      <CardHeader card={card} />
+      <CardHeader card={card} onStartAddingTask={() => setIsAddingTask(true)} />
       <CardMain card={card} />
+      {isAddingTask && (
+        <CardFooter cardId={card.id} onClose={() => setIsAddingTask(false)} />
+      )}
     </div>
   );
 }

@@ -55,6 +55,11 @@ const initialState: ICardState = {
   ],
 };
 
+interface ICreateCard {
+  title: ICard['title'];
+  boardId: IBoard['id'];
+}
+
 interface IUpdateCardBoardPayload {
   id: ICard['id'];
   boardId: IBoard['id'];
@@ -74,8 +79,13 @@ const cardsSlice = createSlice({
   name: 'cards',
   initialState,
   reducers: {
-    createCard(state, action: PayloadAction<ICard>) {
-      state.cards.push(action.payload);
+    createCard(state, action: PayloadAction<ICreateCard>) {
+      state.cards.push({
+        id: uuid(),
+        title: action.payload.title,
+        boardId: action.payload.boardId,
+        tasks: [],
+      });
     },
     removeCard(state, action: PayloadAction<ICard['id']>) {
       state.cards = state.cards.filter((card) => card.id !== action.payload);

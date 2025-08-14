@@ -1,9 +1,15 @@
 import type { IBoard } from '../../types/IBoard';
 import { Menu } from '../Menu/Menu';
-import { HiOutlineEllipsisHorizontal, HiOutlineTrash } from 'react-icons/hi2';
+import {
+  HiOutlineEllipsisHorizontal,
+  HiOutlinePencil,
+  HiOutlineTrash,
+} from 'react-icons/hi2';
 import { Modal } from '../Modal/Modal';
 import { useDispatch } from 'react-redux';
 import { removeBoard } from '../../store/boardsSlice';
+import { useState } from 'react';
+import { BoardTitleInput } from './BoardTitleInput';
 
 interface BoardHeaderProps {
   board: IBoard;
@@ -12,12 +18,21 @@ interface BoardHeaderProps {
 
 export function BoardHeader({ board, hasCards }: BoardHeaderProps) {
   const dispatch = useDispatch();
+  const [isUpdatingTitle, setIsUpdatingTitle] = useState(false);
+
+  function handleCloseUpdatingTitle() {
+    setIsUpdatingTitle(false);
+  }
 
   return (
-    <header className="py-2 px-5 pr-4 flex justify-between">
-      <h3 className="font-medium text-lg text-blue-900 uppercase">
-        {board.title}
-      </h3>
+    <header className="grid grid-cols-[1fr_min-content] gap-4 py-2 px-5 pr-4">
+      {isUpdatingTitle ? (
+        <BoardTitleInput board={board} onClose={handleCloseUpdatingTitle} />
+      ) : (
+        <h3 className="border-b-2 border-transparent font-medium text-lg text-blue-900 uppercase whitespace-nowrap text-ellipsis overflow-hidden">
+          {board.title}
+        </h3>
+      )}
 
       <Modal>
         <Menu.Toggler
@@ -28,6 +43,9 @@ export function BoardHeader({ board, hasCards }: BoardHeaderProps) {
         </Menu.Toggler>
 
         <Menu.List id={`board-${board.id}-menu`}>
+          <Menu.Button onClick={() => setIsUpdatingTitle(true)}>
+            <HiOutlinePencil /> <span>Update title</span>
+          </Menu.Button>
           <Modal.Open windowName={`remove-board-${board.id}`}>
             <Menu.Button disabled={hasCards}>
               <HiOutlineTrash /> <span>Remove</span>

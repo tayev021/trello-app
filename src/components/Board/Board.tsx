@@ -34,7 +34,7 @@ export function Board({ board }: BoardProps) {
     >
       <BoardHeader board={board} hasCards={!!filteredCards.length} />
       <BoardMain cards={filteredCards} />
-      <BoardFooter />
+      <BoardFooter board={board} />
     </div>
   );
 }

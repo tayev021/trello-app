@@ -5,6 +5,7 @@ import { updateCardBoard } from '../../store/cardsSlice';
 import { BoardHeader } from './BoardHeader';
 import { BoardMain } from './BoardMain';
 import { BoardFooter } from './BoardFooter';
+import { BoardContext } from '../../context/BoardContext';
 
 interface BoardProps {
   board: IBoard;
@@ -27,14 +28,16 @@ export function Board({ board }: BoardProps) {
   }
 
   return (
-    <div
-      className="grid grid-rows-[min-content_1fr_min-content] rounded-lg bg-[#F1F2F4] shadow-xl overflow-hidden"
-      onDragOver={handleDragOver}
-      onDrop={handleDrop}
-    >
-      <BoardHeader board={board} hasCards={!!filteredCards.length} />
-      <BoardMain cards={filteredCards} />
-      <BoardFooter board={board} />
-    </div>
+    <BoardContext.Provider value={{ board }}>
+      <div
+        className="grid grid-rows-[min-content_1fr_min-content] rounded-lg bg-[#F1F2F4] shadow-xl overflow-hidden"
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+      >
+        <BoardHeader hasCards={!!filteredCards.length} />
+        <BoardMain cards={filteredCards} />
+        <BoardFooter />
+      </div>
+    </BoardContext.Provider>
   );
 }

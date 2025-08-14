@@ -1,13 +1,10 @@
 import { useState } from 'react';
 import { HiPlus } from 'react-icons/hi2';
 import { BoardCardInput } from './BoardCardInput';
-import type { IBoard } from '../../types/IBoard';
+import { useBoardContext } from '../../hooks/useBoardContext';
 
-interface BoardFooterProps {
-  board: IBoard;
-}
-
-export function BoardFooter({ board }: BoardFooterProps) {
+export function BoardFooter() {
+  const { board } = useBoardContext();
   const [isAddingCard, setIsAddingCard] = useState(false);
 
   return (

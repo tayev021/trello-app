@@ -1,4 +1,6 @@
-import type { IBoard } from '../../types/IBoard';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useBoardContext } from '../../hooks/useBoardContext';
 import { Menu } from '../Menu/Menu';
 import {
   HiOutlineEllipsisHorizontal,
@@ -6,19 +8,17 @@ import {
   HiOutlineTrash,
 } from 'react-icons/hi2';
 import { Modal } from '../Modal/Modal';
-import { useDispatch } from 'react-redux';
 import { removeBoard } from '../../store/boardsSlice';
-import { useState } from 'react';
 import { BoardTitleInput } from './BoardTitleInput';
 
 interface BoardHeaderProps {
-  board: IBoard;
   hasCards: boolean;
 }
 
-export function BoardHeader({ board, hasCards }: BoardHeaderProps) {
-  const dispatch = useDispatch();
+export function BoardHeader({ hasCards }: BoardHeaderProps) {
   const [isUpdatingTitle, setIsUpdatingTitle] = useState(false);
+  const dispatch = useDispatch();
+  const { board } = useBoardContext();
 
   function handleCloseUpdatingTitle() {
     setIsUpdatingTitle(false);

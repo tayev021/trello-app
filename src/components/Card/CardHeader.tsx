@@ -14,10 +14,12 @@ export function CardHeader({ card }: CardHeaderProps) {
 
   return (
     <header
-      className="flex justify-between"
+      className="grid grid-cols-[1fr_min-content] gap-2"
       style={card.tasks.length > 0 ? { marginBottom: '8px' } : {}}
     >
-      <h4 className="font-normal">{card.title}</h4>
+      <h4 className="font-normal whitespace-nowrap text-ellipsis overflow-hidden ">
+        {card.title}
+      </h4>
 
       <Menu.Toggler
         id={`card-${card.id}-menu`}

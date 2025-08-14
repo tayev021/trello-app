@@ -21,8 +21,8 @@ export function BoardCardInput({ onClose }: BoardCardInputProps) {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (cardTitleValue.length > 0) {
-      dispatch(createCard({ title: cardTitleValue, boardId: board.id }));
+    if (cardTitleValue.trim().length > 0) {
+      dispatch(createCard({ title: cardTitleValue.trim(), boardId: board.id }));
       onClose();
     }
   }

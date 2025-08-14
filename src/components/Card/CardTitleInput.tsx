@@ -21,8 +21,8 @@ export function CardTitleInput({ card, onClose }: BoardTitleInputProps) {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (titleValue.length > 0) {
-      dispatch(updateCardTitle({ id: card.id, title: titleValue }));
+    if (titleValue.trim().length > 0) {
+      dispatch(updateCardTitle({ id: card.id, title: titleValue.trim() }));
       onClose();
     }
   }

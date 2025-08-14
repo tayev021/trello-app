@@ -27,6 +27,11 @@ const initialState: IBoardState = {
   ],
 };
 
+interface IUpdateBoardTitlePayload {
+  id: IBoard['id'];
+  title: string;
+}
+
 const boardsSlice = createSlice({
   name: 'boards',
   initialState,
@@ -39,8 +44,16 @@ const boardsSlice = createSlice({
         (board) => board.id !== action.payload
       );
     },
+    updateBoardTitle(state, action: PayloadAction<IUpdateBoardTitlePayload>) {
+      state.boards = state.boards.map((board) =>
+        board.id === action.payload.id
+          ? { ...board, title: action.payload.title }
+          : board
+      );
+    },
   },
 });
 
 export const boardsReducer = boardsSlice.reducer;
-export const { createBoard, removeBoard } = boardsSlice.actions;
+export const { createBoard, removeBoard, updateBoardTitle } =
+  boardsSlice.actions;

@@ -65,12 +65,17 @@ interface IUpdateCardBoardPayload {
   boardId: IBoard['id'];
 }
 
-interface IToggleTaskStatusPayload {
+interface ICreateTaskPayload {
+  id: ICard['id'];
+  name: ITask['name'];
+}
+
+interface IRemoveTaskPayload {
   id: ICard['id'];
   taskId: ITask['id'];
 }
 
-interface IRemoveTaskPayload {
+interface IToggleTaskStatusPayload {
   id: ICard['id'];
   taskId: ITask['id'];
 }
@@ -97,6 +102,26 @@ const cardsSlice = createSlice({
           : card
       );
     },
+    createTask(state, action: PayloadAction<ICreateTaskPayload>) {
+      const card = state.cards.find((card) => card.id === action.payload.id);
+
+      if (!card) return;
+
+      card.tasks.push({
+        id: uuid(),
+        name: action.payload.name,
+        isDone: false,
+      });
+    },
+    removeTask(state, action: PayloadAction<IRemoveTaskPayload>) {
+      const card = state.cards.find((card) => card.id === action.payload.id);
+
+      if (!card) return;
+
+      card.tasks = card.tasks.filter(
+        (task) => task.id !== action.payload.taskId
+      );
+    },
     toggleTaskStatus(state, action: PayloadAction<IToggleTaskStatusPayload>) {
       const card = state.cards.find((card) => card.id === action.payload.id);
 
@@ -108,15 +133,6 @@ const cardsSlice = createSlice({
           : task
       );
     },
-    removeTask(state, action: PayloadAction<IRemoveTaskPayload>) {
-      const card = state.cards.find((card) => card.id === action.payload.id);
-
-      if (!card) return;
-
-      card.tasks = card.tasks.filter(
-        (task) => task.id !== action.payload.taskId
-      );
-    },
   },
 });
 
@@ -125,6 +141,7 @@ export const {
   createCard,
   removeCard,
   updateCardBoard,
-  toggleTaskStatus,
+  createTask,
   removeTask,
+  toggleTaskStatus,
 } = cardsSlice.actions;

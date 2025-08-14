@@ -60,6 +60,11 @@ interface ICreateCard {
   boardId: IBoard['id'];
 }
 
+interface IUpdateCardTitle {
+  id: ICard['id'];
+  title: ICard['title'];
+}
+
 interface IUpdateCardBoardPayload {
   id: ICard['id'];
   boardId: IBoard['id'];
@@ -94,6 +99,13 @@ const cardsSlice = createSlice({
     },
     removeCard(state, action: PayloadAction<ICard['id']>) {
       state.cards = state.cards.filter((card) => card.id !== action.payload);
+    },
+    updateCardTitle(state, action: PayloadAction<IUpdateCardTitle>) {
+      const card = state.cards.find((card) => card.id === action.payload.id);
+
+      if (!card) return;
+
+      card.title = action.payload.title;
     },
     updateCardBoard(state, action: PayloadAction<IUpdateCardBoardPayload>) {
       state.cards = state.cards.map((card) =>
@@ -140,6 +152,7 @@ export const cardsReducer = cardsSlice.reducer;
 export const {
   createCard,
   removeCard,
+  updateCardTitle,
   updateCardBoard,
   createTask,
   removeTask,

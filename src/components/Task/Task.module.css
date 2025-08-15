@@ -24,28 +24,30 @@
 
 .checkbox-container input:checked ~ .checkbox-mark {
   border: transparent;
-  border-radius: 0.5rem;
-  background-color: transparent;
 }
 
-.checkbox-mark:after {
+.checkbox-mark::after {
   content: '';
   position: absolute;
-  display: none;
+  opacity: 0;
 }
 
-.checkbox-container input:checked ~ .checkbox-mark:after {
+.checkbox-container:hover .checkbox-mark::after {
   display: block;
+  opacity: 0.7;
 }
 
-.checkbox-container .checkbox-mark:after {
+.checkbox-container input:checked ~ .checkbox-mark::after {
+  opacity: 1;
+}
+
+.checkbox-container .checkbox-mark::after {
+  display: block;
   left: 2px;
   top: -1px;
   width: 6px;
   height: 10px;
-  /* border: solid #0b6e4f; */
   border: solid #15803d;
-  /* border: solid #166534; */
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
   transition: all 0.2s linear;

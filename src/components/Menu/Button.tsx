@@ -15,7 +15,7 @@ export function Button({ disabled, onClick, children }: ButtonProps) {
     close();
   }
   return (
-    <li>
+    <li className="list-none">
       <button
         className="w-full flex items-center gap-2 p-1 rounded-md hover:bg-zinc-200 active:bg-blue-200 cursor-pointer disabled:cursor-no-drop disabled:active:bg-zinc-200"
         disabled={disabled}

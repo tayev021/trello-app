@@ -1,11 +1,9 @@
-import type { ICard } from '../../types/ICard';
+import { useCardContext } from '../../hooks/useCardContext';
 import { Task } from '../Task/Task';
 
-interface CardMainProps {
-  card: ICard;
-}
+export function CardMain() {
+  const { card } = useCardContext();
 
-export function CardMain({ card }: CardMainProps) {
   return (
     <main>
       <ul>

@@ -1,11 +1,17 @@
 import { useState } from 'react';
 import { useCardContext } from '../../hooks/useCardContext';
 import { useDispatch } from 'react-redux';
-import { updateCardTitle } from '../../store/cardsSlice';
+import { removeCard, updateCardTitle } from '../../store/cardsSlice';
 import { Input } from '../forms/Input';
-import { HiOutlinePlus } from 'react-icons/hi2';
+import { Button } from '../forms/Button';
+import { Modal } from '../Modal/Modal';
+import {
+  HiOutlinePencil,
+  HiOutlinePlus,
+  HiOutlineTrash,
+} from 'react-icons/hi2';
 
-export function CardHeader() {
+export function DetailedCardHeader() {
   const [isUpdatingTitle, setIsUpdatingTitle] = useState(false);
   const { card, setIsAddingTask } = useCardContext();
   const dispatch = useDispatch();
@@ -16,7 +22,7 @@ export function CardHeader() {
 
   return (
     <header
-      className="grid grid-cols-[1fr_min-content] gap-2"
+      className="grid grid-cols-[1fr_repeat(3,min-content)] gap-2"
       style={card.tasks.length > 0 ? { marginBottom: '8px' } : {}}
     >
       {isUpdatingTitle ? (
@@ -32,12 +38,23 @@ export function CardHeader() {
         </h4>
       )}
 
-      <button
-        className="w-6 h-6 flex justify-center items-center rounded-4xl text-lg text-zinc-600 hover:bg-[#FFFFFF] hover:shadow-[0_1px_3px_rgba(80,80,80,0.5)] cursor-pointer"
-        onClick={() => setIsAddingTask(true)}
-      >
+      <Button onClick={() => setIsUpdatingTitle(true)}>
+        <HiOutlinePencil />
+      </Button>
+      <Button onClick={() => setIsAddingTask(true)}>
         <HiOutlinePlus />
-      </button>
+      </Button>
+      <Modal.Open windowName={`remove-card-${card.id}`}>
+        <Button>
+          <HiOutlineTrash />
+        </Button>
+      </Modal.Open>
+
+      <Modal.Window name={`remove-card-${card.id}`}>
+        <Modal.Confirm onConfirm={() => dispatch(removeCard(card.id))}>
+          Are you sure you want to remove "{card.title}" card?
+        </Modal.Confirm>
+      </Modal.Window>
     </header>
   );
 }

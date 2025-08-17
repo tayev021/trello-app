@@ -1,17 +1,13 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
+import { useCardContext } from '../../hooks/useCardContext';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
 import { useDispatch } from 'react-redux';
 import { createTask } from '../../store/cardsSlice';
-import type { ICard } from '../../types/ICard';
 
-interface CardFooterProps {
-  cardId: ICard['id'];
-  onClose: () => void;
-}
-
-export function CardFooter({ cardId, onClose }: CardFooterProps) {
+export function CardFooter() {
   const [taskNameValue, setTaskNameValue] = useState('');
-  const ref = useOutsideClick<HTMLFormElement>(onClose);
+  const { card, setIsAddingTask } = useCardContext();
+  const ref = useOutsideClick<HTMLFormElement>(() => setIsAddingTask(false));
   const dispatch = useDispatch();
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
@@ -22,8 +18,8 @@ export function CardFooter({ cardId, onClose }: CardFooterProps) {
     event.preventDefault();
 
     if (taskNameValue.length > 0) {
-      dispatch(createTask({ id: cardId, name: taskNameValue }));
-      onClose();
+      dispatch(createTask({ id: card.id, name: taskNameValue }));
+      setIsAddingTask(false);
     }
   }
 

@@ -6,12 +6,14 @@ import { BoardHeader } from './BoardHeader';
 import { BoardMain } from './BoardMain';
 import { BoardFooter } from './BoardFooter';
 import { BoardContext } from '../../context/BoardContext';
+import { DetailedBoardHeader } from './DetailedBoardHeader';
 
 interface BoardProps {
   board: IBoard;
+  isDetailed?: boolean;
 }
 
-export function Board({ board }: BoardProps) {
+export function Board({ board, isDetailed = false }: BoardProps) {
   const dispatch = useDispatch();
   const cards = useStoreSelector((store) => store.cards.cards);
   const filteredCards = cards.filter((cards) => cards.boardId === board.id);
@@ -28,14 +30,15 @@ export function Board({ board }: BoardProps) {
   }
 
   return (
-    <BoardContext.Provider value={{ board }}>
+    <BoardContext.Provider value={{ board, cards: filteredCards, isDetailed }}>
       <div
-        className="grid grid-rows-[min-content_1fr_min-content] rounded-lg bg-[#F1F2F4] shadow-xl overflow-hidden"
+        className="max-w-[900px] grid grid-rows-[min-content_1fr_min-content] rounded-lg bg-[#F1F2F4] shadow-xl overflow-hidden"
+        style={isDetailed ? { margin: '0 auto' } : {}}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >
-        <BoardHeader hasCards={!!filteredCards.length} />
-        <BoardMain cards={filteredCards} />
+        {isDetailed ? <DetailedBoardHeader /> : <BoardHeader />}
+        <BoardMain />
         <BoardFooter />
       </div>
     </BoardContext.Provider>

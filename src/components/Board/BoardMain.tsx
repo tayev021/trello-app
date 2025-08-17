@@ -1,18 +1,16 @@
-import type { ICard } from '../../types/ICard';
+import { useBoardContext } from '../../hooks/useBoardContext';
 import { Card } from '../Card/Card';
 
-interface BoardHeaderProps {
-  cards: ICard[];
-}
+export function BoardMain() {
+  const { cards } = useBoardContext();
 
-export function BoardMain({ cards }: BoardHeaderProps) {
   return (
     <main
-      className="px-4 flex flex-col"
+      className="flex flex-col px-4"
       style={cards.length === 0 ? { justifyContent: 'center' } : {}}
     >
       {cards.length === 0 ? (
-        <p className="italic text-zinc-400 text-center">
+        <p className="py-5 italic text-zinc-400 text-center">
           No cards on this board
         </p>
       ) : (

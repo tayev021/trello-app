@@ -1,35 +1,49 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useBoardContext } from '../../hooks/useBoardContext';
+import { useDispatch } from 'react-redux';
+import { removeBoard, updateBoardTitle } from '../../store/boardsSlice';
+import { Modal } from '../Modal/Modal';
 import { Menu } from '../Menu/Menu';
+import { Link } from 'react-router';
+import { Input } from '../forms/Input';
 import {
   HiOutlineEllipsisHorizontal,
+  HiOutlineEye,
   HiOutlinePencil,
   HiOutlineTrash,
 } from 'react-icons/hi2';
-import { Modal } from '../Modal/Modal';
-import { removeBoard } from '../../store/boardsSlice';
-import { BoardTitleInput } from './BoardTitleInput';
 
-interface BoardHeaderProps {
-  hasCards: boolean;
-}
-
-export function BoardHeader({ hasCards }: BoardHeaderProps) {
+export function BoardHeader() {
   const [isUpdatingTitle, setIsUpdatingTitle] = useState(false);
+  const { board, cards, isDetailed } = useBoardContext();
   const dispatch = useDispatch();
-  const { board } = useBoardContext();
+
+  const hasCards = !!cards.length;
 
   function handleCloseUpdatingTitle() {
     setIsUpdatingTitle(false);
   }
 
+  function onSubmitTitleUpdate(title: string): void {
+    dispatch(updateBoardTitle({ id: board.id, title: title }));
+  }
+
   return (
-    <header className="grid grid-cols-[1fr_min-content] gap-4 py-2 px-5 pr-4">
+    <header className="grid grid-cols-[1fr_min-content] gap-4 items-center py-2 px-5 pr-4">
       {isUpdatingTitle ? (
-        <BoardTitleInput board={board} onClose={handleCloseUpdatingTitle} />
+        <>
+          <Input
+            className="border-b-2 border-blue-900 font-medium uppercase text-lg text-blue-900"
+            initialValue={board.title}
+            onSubmit={onSubmitTitleUpdate}
+            onClose={handleCloseUpdatingTitle}
+          />
+        </>
       ) : (
-        <h3 className="border-b-2 border-transparent font-medium text-lg text-blue-900 uppercase whitespace-nowrap text-ellipsis overflow-hidden">
+        <h3
+          className="border-b-2 border-transparent font-medium text-lg text-blue-900 uppercase whitespace-nowrap text-ellipsis overflow-hidden"
+          style={isDetailed ? { textAlign: 'center' } : {}}
+        >
           {board.title}
         </h3>
       )}
@@ -43,6 +57,14 @@ export function BoardHeader({ hasCards }: BoardHeaderProps) {
         </Menu.Toggler>
 
         <Menu.List id={`board-${board.id}-menu`}>
+          <Menu.Button>
+            <Link
+              to={`/board/${board.id}`}
+              className="w-full flex items-center gap-2"
+            >
+              <HiOutlineEye /> <span>Open</span>
+            </Link>
+          </Menu.Button>
           <Menu.Button onClick={() => setIsUpdatingTitle(true)}>
             <HiOutlinePencil /> <span>Update title</span>
           </Menu.Button>

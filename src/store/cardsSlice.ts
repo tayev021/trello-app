@@ -80,6 +80,12 @@ interface IRemoveTaskPayload {
   taskId: ITask['id'];
 }
 
+interface IUpdateTaskNamePayload {
+  id: ICard['id'];
+  taskId: ITask['id'];
+  name: ITask['name'];
+}
+
 interface IToggleTaskStatusPayload {
   id: ICard['id'];
   taskId: ITask['id'];
@@ -134,6 +140,17 @@ const cardsSlice = createSlice({
         (task) => task.id !== action.payload.taskId
       );
     },
+    updateTaskName(state, action: PayloadAction<IUpdateTaskNamePayload>) {
+      const card = state.cards.find((card) => card.id === action.payload.id);
+
+      if (!card) return;
+
+      card.tasks = card.tasks.map((task) =>
+        task.id === action.payload.taskId
+          ? { ...task, name: action.payload.name }
+          : task
+      );
+    },
     toggleTaskStatus(state, action: PayloadAction<IToggleTaskStatusPayload>) {
       const card = state.cards.find((card) => card.id === action.payload.id);
 
@@ -156,5 +173,6 @@ export const {
   updateCardBoard,
   createTask,
   removeTask,
+  updateTaskName,
   toggleTaskStatus,
 } = cardsSlice.actions;

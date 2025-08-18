@@ -3,14 +3,14 @@ import { useOutsideClick } from '../../hooks/useOutsideClick';
 
 interface InputProps {
   className: string;
-  initialValue: string;
+  initialValue?: string;
   onSubmit: (title: string) => void;
   onClose: () => void;
 }
 
 export function Input({
   className,
-  initialValue,
+  initialValue = '',
   onSubmit,
   onClose,
 }: InputProps) {
@@ -37,14 +37,14 @@ export function Input({
       onSubmit={handleSubmit}
     >
       <input
-        className={'w-full  focus:outline-0 ' + className}
+        className={'w-full focus:outline-0 ' + className}
         type="text"
         value={value}
         onChange={handleChange}
         autoFocus
       />
       <button
-        className="py-1 px-2 rounded-xl leading-none uppercase hover:bg-[#FFFFFF] hover:shadow-[0_1px_3px_rgba(80,80,80,0.5)] text-sm cursor-pointer"
+        className="py-1 px-2 rounded-xl text-base leading-none uppercase hover:bg-[#FFFFFF] hover:shadow-[0_1px_3px_rgba(80,80,80,0.5)] active:bg-blue-200 cursor-pointer"
         type="submit"
       >
         Update

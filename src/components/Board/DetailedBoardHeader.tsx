@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import { removeBoard, updateBoardTitle } from '../../store/boardsSlice';
 import { Modal } from '../Modal/Modal';
 import { Input } from '../forms/Input';
-import { Button } from '../Menu/Button';
+import { Button } from '../forms/Button';
 import {
   HiOutlineArrowLeft,
   HiOutlinePencil,
@@ -52,22 +52,20 @@ export function DetailedBoardHeader() {
         </h3>
       )}
 
-      <Modal>
-        <Button onClick={() => setIsUpdatingTitle(true)}>
-          <HiOutlinePencil />
+      <Button onClick={() => setIsUpdatingTitle(true)}>
+        <HiOutlinePencil />
+      </Button>
+      <Modal.Open windowName={`remove-board-${board.id}`}>
+        <Button disabled={hasCards}>
+          <HiOutlineTrash />
         </Button>
-        <Modal.Open windowName={`remove-board-${board.id}`}>
-          <Button disabled={hasCards}>
-            <HiOutlineTrash />
-          </Button>
-        </Modal.Open>
+      </Modal.Open>
 
-        <Modal.Window name={`remove-board-${board.id}`}>
-          <Modal.Confirm onConfirm={() => dispatch(removeBoard(board.id))}>
-            Are you sure you want to remove "{board.title}" board?
-          </Modal.Confirm>
-        </Modal.Window>
-      </Modal>
+      <Modal.Window name={`remove-board-${board.id}`}>
+        <Modal.Confirm onConfirm={() => dispatch(removeBoard(board.id))}>
+          Are you sure you want to remove "{board.title}" board?
+        </Modal.Confirm>
+      </Modal.Window>
     </header>
   );
 }

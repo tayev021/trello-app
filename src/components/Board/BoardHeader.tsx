@@ -48,39 +48,37 @@ export function BoardHeader() {
         </h3>
       )}
 
-      <Modal>
-        <Menu.Toggler
-          id={`board-${board.id}-menu`}
-          className="w-6 h-6 rounded-4xl text-2xl hover:bg-[#FFFFFF] hover:shadow-[0_1px_3px_rgba(80,80,80,0.5)] cursor-pointer"
-        >
-          <HiOutlineEllipsisHorizontal />
-        </Menu.Toggler>
+      <Menu.Toggler
+        id={`board-${board.id}-menu`}
+        className="w-6 h-6 rounded-4xl text-2xl hover:bg-[#FFFFFF] hover:shadow-[0_1px_3px_rgba(80,80,80,0.5)] cursor-pointer"
+      >
+        <HiOutlineEllipsisHorizontal />
+      </Menu.Toggler>
 
-        <Menu.List id={`board-${board.id}-menu`}>
-          <Menu.Button>
-            <Link
-              to={`/board/${board.id}`}
-              className="w-full flex items-center gap-2"
-            >
-              <HiOutlineEye /> <span>Open</span>
-            </Link>
+      <Menu.List id={`board-${board.id}-menu`}>
+        <Menu.Button>
+          <Link
+            to={`/board/${board.id}`}
+            className="w-full flex items-center gap-2"
+          >
+            <HiOutlineEye /> <span>Open</span>
+          </Link>
+        </Menu.Button>
+        <Menu.Button onClick={() => setIsUpdatingTitle(true)}>
+          <HiOutlinePencil /> <span>Update title</span>
+        </Menu.Button>
+        <Modal.Open windowName={`remove-board-${board.id}`}>
+          <Menu.Button disabled={hasCards}>
+            <HiOutlineTrash /> <span>Remove</span>
           </Menu.Button>
-          <Menu.Button onClick={() => setIsUpdatingTitle(true)}>
-            <HiOutlinePencil /> <span>Update title</span>
-          </Menu.Button>
-          <Modal.Open windowName={`remove-board-${board.id}`}>
-            <Menu.Button disabled={hasCards}>
-              <HiOutlineTrash /> <span>Remove</span>
-            </Menu.Button>
-          </Modal.Open>
-        </Menu.List>
+        </Modal.Open>
+      </Menu.List>
 
-        <Modal.Window name={`remove-board-${board.id}`}>
-          <Modal.Confirm onConfirm={() => dispatch(removeBoard(board.id))}>
-            Are you sure you want to remove "{board.title}" board?
-          </Modal.Confirm>
-        </Modal.Window>
-      </Modal>
+      <Modal.Window name={`remove-board-${board.id}`}>
+        <Modal.Confirm onConfirm={() => dispatch(removeBoard(board.id))}>
+          Are you sure you want to remove "{board.title}" board?
+        </Modal.Confirm>
+      </Modal.Window>
     </header>
   );
 }

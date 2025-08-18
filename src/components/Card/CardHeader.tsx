@@ -10,7 +10,7 @@ export function CardHeader() {
   const { card, setIsAddingTask } = useCardContext();
   const dispatch = useDispatch();
 
-  function onSubmitTitleUpdate(title: string): void {
+  function handleUpdateTitle(title: string): void {
     dispatch(updateCardTitle({ id: card.id, title: title }));
   }
 
@@ -23,7 +23,7 @@ export function CardHeader() {
         <Input
           className="border-b-2 border-blue-900 font-normal"
           initialValue={card.title}
-          onSubmit={onSubmitTitleUpdate}
+          onSubmit={handleUpdateTitle}
           onClose={() => setIsUpdatingTitle(false)}
         />
       ) : (

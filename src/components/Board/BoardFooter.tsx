@@ -10,7 +10,7 @@ export function BoardFooter() {
   const { board } = useBoardContext();
   const dispatch = useDispatch();
 
-  function onSubmitCreateCard(cardTitle: string) {
+  function handleCreateCard(cardTitle: string) {
     dispatch(createCard({ title: cardTitle, boardId: board.id }));
   }
 
@@ -20,7 +20,7 @@ export function BoardFooter() {
         <>
           <Input
             className="py-0.5 px-3 rounded-2xl border-zinc-600  focus:outline-0 font-normal text-base bg-[#FFFFFF] shadow-[0_1px_3px_rgba(80,80,80,0.5)]"
-            onSubmit={onSubmitCreateCard}
+            onSubmit={handleCreateCard}
             onClose={() => setIsAddingCard(false)}
           />
         </>

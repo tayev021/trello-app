@@ -20,11 +20,7 @@ export function DetailedBoardHeader() {
 
   const hasCards = !!cards.length;
 
-  function handleCloseUpdatingTitle() {
-    setIsUpdatingTitle(false);
-  }
-
-  function onSubmitTitleUpdate(title: string): void {
+  function handleUpdateTitle(title: string): void {
     dispatch(updateBoardTitle({ id: board.id, title: title }));
   }
 
@@ -42,8 +38,8 @@ export function DetailedBoardHeader() {
           <Input
             className="border-b-2 border-blue-900 font-medium uppercase text-lg text-blue-900"
             initialValue={board.title}
-            onSubmit={onSubmitTitleUpdate}
-            onClose={handleCloseUpdatingTitle}
+            onSubmit={handleUpdateTitle}
+            onClose={() => setIsUpdatingTitle(false)}
           />
         </>
       ) : (

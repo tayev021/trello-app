@@ -4,7 +4,7 @@ import { useOutsideClick } from '../../hooks/useOutsideClick';
 interface InputProps {
   className: string;
   initialValue?: string;
-  onSubmit: (title: string) => void;
+  onSubmit: (value: string) => void;
   onClose: () => void;
 }
 

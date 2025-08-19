@@ -24,6 +24,11 @@ export function DetailedBoardHeader() {
     dispatch(updateBoardTitle({ id: board.id, title: title }));
   }
 
+  function handleRemove() {
+    dispatch(removeBoard(board.id));
+    navigate('/');
+  }
+
   return (
     <header className="grid grid-cols-[max-content_1fr_min-content_min-content] gap-4 items-center py-3 px-5 pr-4">
       <button
@@ -58,7 +63,7 @@ export function DetailedBoardHeader() {
       </Modal.Open>
 
       <Modal.Window name={`remove-board-${board.id}`}>
-        <Modal.Confirm onConfirm={() => dispatch(removeBoard(board.id))}>
+        <Modal.Confirm onConfirm={handleRemove}>
           Are you sure you want to remove "{board.title}" board?
         </Modal.Confirm>
       </Modal.Window>

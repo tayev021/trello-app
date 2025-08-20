@@ -26,8 +26,9 @@ export function Window({ children, name }: WindowProps) {
         ref={ref}
       >
         <button
-          className="absolute top-3 right-3 p-1 rounded-4xl text-xl hover:bg-zinc-200 hover:shadow-[0_1px_3px_rgba(80,80,80,0.5)] transition-all duration-100 cursor-pointer"
+          className="absolute top-3 right-3 p-1 rounded-4xl text-xl hover:bg-zinc-200 hover:shadow-[0_1px_3px_rgba(80,80,80,0.5)] active:bg-blue-300 focus:outline-blue-500 focus:outline-offset-2 transition-all duration-100 cursor-pointer"
           onClick={close}
+          autoFocus
         >
           <HiXMark />
         </button>

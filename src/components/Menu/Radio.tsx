@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { KeyboardEvent, ReactNode } from 'react';
 import { v4 as uuid } from 'uuid';
 
 interface RadioProps {
@@ -8,7 +8,7 @@ interface RadioProps {
   value: string;
   checked: boolean;
   children?: ReactNode;
-  handleChange: (_: any) => void;
+  handleChange: () => void;
 }
 
 export function Radio({
@@ -22,6 +22,12 @@ export function Radio({
 }: RadioProps) {
   const id = uuid();
 
+  function handleEnterDown(event: KeyboardEvent<HTMLLabelElement>) {
+    if (event.key === 'Enter') {
+      handleChange();
+    }
+  }
+
   return (
     <li>
       <input
@@ -33,7 +39,13 @@ export function Radio({
         checked={checked}
         onChange={handleChange}
       />
-      <label className={className} style={style} htmlFor={id}>
+      <label
+        className={className}
+        style={style}
+        htmlFor={id}
+        tabIndex={0}
+        onKeyDown={handleEnterDown}
+      >
         {children}
       </label>
     </li>

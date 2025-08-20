@@ -1,10 +1,13 @@
 import { useEffect, useRef } from 'react';
+import { getEscapePressEffect } from '../utils/getEscapePressEffect';
 
 export function useOutsideClick<T extends HTMLElement>(
   handler: () => void,
   listenCapture = true
 ) {
   const ref = useRef<T>(null);
+
+  useEffect(getEscapePressEffect(handler), []);
 
   useEffect(
     function () {

@@ -10,7 +10,7 @@ export function BoardMain() {
       style={cards.length === 0 ? { justifyContent: 'center' } : {}}
     >
       {cards.length === 0 ? (
-        <p className="py-5 italic text-zinc-400 text-center">
+        <p className="py-5 italic text-zinc-500 text-center">
           No cards on this board
         </p>
       ) : (

@@ -4,9 +4,11 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { removeBoard, updateBoardTitle } from '../../store/boardsSlice';
 import { Modal } from '../Modal/Modal';
+import { Menu } from '../Menu/Menu';
 import { Input } from '../forms/Input';
 import { Button } from '../forms/Button';
 import {
+  HiOutlineAdjustmentsHorizontal,
   HiOutlineArrowLeft,
   HiOutlinePencil,
   HiOutlineTrash,
@@ -30,7 +32,7 @@ export function DetailedBoardHeader() {
   }
 
   return (
-    <header className="grid grid-cols-[max-content_1fr_min-content_min-content] gap-4 items-center py-3 px-5 pr-4">
+    <header className="grid grid-cols-[max-content_1fr_min-content_min-content_min-content] gap-4 items-center py-3 px-5 pr-4">
       <button
         className="flex items-center gap-2 py-0.5 px-3 rounded-2xl hover:bg-[#FFFFFF] hover:shadow-[0_1px_3px_rgba(80,80,80,0.5)] active:bg-blue-200 cursor-pointer"
         onClick={() => navigate(-1)}
@@ -56,6 +58,16 @@ export function DetailedBoardHeader() {
       <Button onClick={() => setIsUpdatingTitle(true)}>
         <HiOutlinePencil />
       </Button>
+
+      <Menu.Toggler
+        id={`board-${board.id}-color-settings`}
+        className="w-6 h-6 flex justify-center items-center rounded-4xl text-lg text-zinc-600 hover:bg-[#FFFFFF] hover:shadow-[0_1px_3px_rgba(80,80,80,0.5)] cursor-pointer disabled:cursor-not-allowed"
+      >
+        <HiOutlineAdjustmentsHorizontal />
+      </Menu.Toggler>
+
+      <Menu.ColorsList id={`board-${board.id}-color-settings`} />
+
       <Modal.Open windowName={`remove-board-${board.id}`}>
         <Button disabled={hasCards}>
           <HiOutlineTrash />

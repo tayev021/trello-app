@@ -32,8 +32,12 @@ export function Board({ board, isDetailed = false }: BoardProps) {
   return (
     <BoardContext.Provider value={{ board, cards: filteredCards, isDetailed }}>
       <div
-        className="max-w-[900px] grid grid-rows-[min-content_1fr_min-content] rounded-lg bg-[#F1F2F4] shadow-xl overflow-hidden"
-        style={isDetailed ? { margin: '0 auto' } : {}}
+        className="max-w-[900px] grid grid-rows-[min-content_1fr_min-content] rounded-lg shadow-xl overflow-hidden"
+        style={
+          isDetailed
+            ? { margin: '0 auto', backgroundColor: `${board.bgColor}` }
+            : { backgroundColor: `${board.bgColor}` }
+        }
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >

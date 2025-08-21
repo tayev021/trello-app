@@ -18,11 +18,11 @@ export function Board({ board, isDetailed = false }: BoardProps) {
   const cards = useStoreSelector((store) => store.cards.cards);
   const filteredCards = cards.filter((cards) => cards.boardId === board.id);
 
-  function handleDragOver(event: React.DragEvent<HTMLDivElement>) {
+  function handleDragOver(event: React.DragEvent<HTMLLIElement>) {
     event.preventDefault();
   }
 
-  function handleDrop(event: React.DragEvent<HTMLDivElement>) {
+  function handleDrop(event: React.DragEvent<HTMLLIElement>) {
     event.preventDefault();
 
     const cardId = event.dataTransfer.getData('text/plain');
@@ -31,7 +31,7 @@ export function Board({ board, isDetailed = false }: BoardProps) {
 
   return (
     <BoardContext.Provider value={{ board, cards: filteredCards, isDetailed }}>
-      <div
+      <li
         className="max-w-[900px] grid grid-rows-[min-content_1fr_min-content] rounded-lg shadow-xl overflow-hidden"
         style={
           isDetailed
@@ -44,7 +44,7 @@ export function Board({ board, isDetailed = false }: BoardProps) {
         {isDetailed ? <DetailedBoardHeader /> : <BoardHeader />}
         <BoardMain />
         <BoardFooter />
-      </div>
+      </li>
     </BoardContext.Provider>
   );
 }

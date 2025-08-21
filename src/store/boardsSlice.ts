@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { IBoardState } from '../types/IBoardState';
 import type { IBoard } from '../types/IBoard';
@@ -33,6 +34,10 @@ const initialState: IBoardState = {
   ],
 };
 
+interface ICreateBoardPayload {
+  title: string;
+}
+
 interface IUpdateBoardTitlePayload {
   id: IBoard['id'];
   title: string;
@@ -47,8 +52,14 @@ const boardsSlice = createSlice({
   name: 'boards',
   initialState,
   reducers: {
-    createBoard(state, action: PayloadAction<IBoard>) {
-      state.boards = [...state.boards, action.payload];
+    createBoard(state, action: PayloadAction<ICreateBoardPayload>) {
+      const newBoard: IBoard = {
+        id: uuid(),
+        title: action.payload.title,
+        bgColor: BGColors[0],
+      };
+
+      state.boards = [...state.boards, newBoard];
     },
     removeBoard(state, action: PayloadAction<IBoard['id']>) {
       state.boards = state.boards.filter(

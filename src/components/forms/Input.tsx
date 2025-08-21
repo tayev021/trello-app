@@ -3,14 +3,18 @@ import { useOutsideClick } from '../../hooks/useOutsideClick';
 
 interface InputProps {
   className: string;
+  containerClassName?: string;
   initialValue?: string;
+  buttonTitle?: string;
   onSubmit: (value: string) => void;
   onClose: () => void;
 }
 
 export function Input({
   className,
+  containerClassName = '',
   initialValue = '',
+  buttonTitle = 'Update',
   onSubmit,
   onClose,
 }: InputProps) {
@@ -33,7 +37,11 @@ export function Input({
   return (
     <form
       ref={ref}
-      className="min-w-[150px] grid grid-cols-[1fr_min-content] items-center gap-2"
+      className={
+        containerClassName
+          ? containerClassName
+          : 'min-w-[150px] grid grid-cols-[1fr_min-content] items-center gap-2'
+      }
       onSubmit={handleSubmit}
     >
       <input
@@ -47,7 +55,7 @@ export function Input({
         className="py-1 px-2 rounded-xl text-base leading-none uppercase hover:bg-[#FFFFFF] hover:shadow-[0_1px_3px_rgba(80,80,80,0.5)] active:bg-blue-200 cursor-pointer"
         type="submit"
       >
-        Update
+        {buttonTitle}
       </button>
     </form>
   );

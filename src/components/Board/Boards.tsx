@@ -1,5 +1,6 @@
 import { useStoreSelector } from '../../hooks/useStoreSelector';
 import { Board } from './Board';
+import { BoardCreator } from './BoardCreator';
 
 export function Boards() {
   const boards = useStoreSelector((store) => store.boards.boards);
@@ -9,6 +10,8 @@ export function Boards() {
       {boards.map((board) => (
         <Board board={board} key={board.id} />
       ))}
+
+      <BoardCreator />
     </ul>
   );
 }

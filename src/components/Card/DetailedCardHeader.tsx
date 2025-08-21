@@ -11,10 +11,20 @@ import {
   HiOutlineTrash,
 } from 'react-icons/hi2';
 
+interface IStyleCardHeader {
+  marginBottom?: string;
+  gridTemplateColumns?: string;
+}
+
 export function DetailedCardHeader() {
   const [isUpdatingTitle, setIsUpdatingTitle] = useState(false);
   const { card, setIsAddingTask } = useCardContext();
   const dispatch = useDispatch();
+
+  const style: IStyleCardHeader = {};
+
+  if (card.tasks.length > 0) style.marginBottom = '8px';
+  if (isUpdatingTitle) style.gridTemplateColumns = '1fr';
 
   function handleUpdateTitle(title: string): void {
     dispatch(updateCardTitle({ id: card.id, title: title }));
@@ -23,7 +33,7 @@ export function DetailedCardHeader() {
   return (
     <header
       className="grid grid-cols-[1fr_repeat(3,min-content)] gap-2"
-      style={card.tasks.length > 0 ? { marginBottom: '8px' } : {}}
+      style={style}
     >
       {isUpdatingTitle ? (
         <Input
@@ -38,23 +48,27 @@ export function DetailedCardHeader() {
         </h4>
       )}
 
-      <Button onClick={() => setIsUpdatingTitle(true)}>
-        <HiOutlinePencil />
-      </Button>
-      <Button onClick={() => setIsAddingTask(true)}>
-        <HiOutlinePlus />
-      </Button>
-      <Modal.Open windowName={`remove-card-${card.id}`}>
-        <Button>
-          <HiOutlineTrash />
-        </Button>
-      </Modal.Open>
+      {!isUpdatingTitle && (
+        <>
+          <Button onClick={() => setIsUpdatingTitle(true)}>
+            <HiOutlinePencil />
+          </Button>
+          <Button onClick={() => setIsAddingTask(true)}>
+            <HiOutlinePlus />
+          </Button>
+          <Modal.Open windowName={`remove-card-${card.id}`}>
+            <Button>
+              <HiOutlineTrash />
+            </Button>
+          </Modal.Open>
 
-      <Modal.Window name={`remove-card-${card.id}`}>
-        <Modal.Confirm onConfirm={() => dispatch(removeCard(card.id))}>
-          Are you sure you want to remove "{card.title}" card?
-        </Modal.Confirm>
-      </Modal.Window>
+          <Modal.Window name={`remove-card-${card.id}`}>
+            <Modal.Confirm onConfirm={() => dispatch(removeCard(card.id))}>
+              Are you sure you want to remove "{card.title}" card?
+            </Modal.Confirm>
+          </Modal.Window>
+        </>
+      )}
     </header>
   );
 }

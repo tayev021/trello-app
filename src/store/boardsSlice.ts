@@ -3,36 +3,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { IBoardState } from '../types/IBoardState';
 import type { IBoard } from '../types/IBoard';
 import { BGColors, type IBGColors } from '../types/IBGColors';
-
-const initialState: IBoardState = {
-  boards: [
-    {
-      id: '1',
-      title: 'ToDo',
-      bgColor: BGColors[0],
-    },
-    {
-      id: '2',
-      title: 'In Progress',
-      bgColor: BGColors[0],
-    },
-    {
-      id: '3',
-      title: 'Done',
-      bgColor: BGColors[0],
-    },
-    {
-      id: '4',
-      title: 'Test 1',
-      bgColor: BGColors[0],
-    },
-    {
-      id: '5',
-      title: 'Test 2',
-      bgColor: BGColors[0],
-    },
-  ],
-};
+import { loadStore } from '../utils/loadStore';
 
 interface ICreateBoardPayload {
   title: string;
@@ -50,7 +21,7 @@ interface IUpdateBoardBGColorPayload {
 
 const boardsSlice = createSlice({
   name: 'boards',
-  initialState,
+  initialState: (): IBoardState => loadStore().boards,
   reducers: {
     createBoard(state, action: PayloadAction<ICreateBoardPayload>) {
       const newBoard: IBoard = {

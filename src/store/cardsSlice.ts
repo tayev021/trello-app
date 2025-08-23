@@ -4,56 +4,7 @@ import type { ICardState } from '../types/ICardState';
 import type { ICard } from '../types/ICard';
 import type { IBoard } from '../types/IBoard';
 import type { ITask } from '../types/ITask';
-
-const initialState: ICardState = {
-  cards: [
-    {
-      id: uuid(),
-      title: 'Test first card',
-      boardId: '1',
-      tasks: [
-        {
-          id: uuid(),
-          name: 'test task 1',
-          isDone: true,
-        },
-        {
-          id: uuid(),
-          name: 'test task 2',
-          isDone: false,
-        },
-        {
-          id: uuid(),
-          name: 'test task 3',
-          isDone: true,
-        },
-        {
-          id: uuid(),
-          name: 'test task 4 test task 4 test task 4',
-          isDone: false,
-        },
-      ],
-    },
-    {
-      id: uuid(),
-      title: 'Test second card',
-      boardId: '1',
-      tasks: [
-        {
-          id: uuid(),
-          name: 'test task 5',
-          isDone: true,
-        },
-      ],
-    },
-    {
-      id: uuid(),
-      title: 'Test third card',
-      boardId: '2',
-      tasks: [],
-    },
-  ],
-};
+import { loadStore } from '../utils/loadStore';
 
 interface ICreateCard {
   title: ICard['title'];
@@ -93,7 +44,7 @@ interface IToggleTaskStatusPayload {
 
 const cardsSlice = createSlice({
   name: 'cards',
-  initialState,
+  initialState: (): ICardState => loadStore().cards,
   reducers: {
     createCard(state, action: PayloadAction<ICreateCard>) {
       state.cards.push({

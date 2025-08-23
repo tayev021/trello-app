@@ -20,6 +20,7 @@ export function BoardFooter() {
         <>
           <Input
             className="py-0.5 px-3 rounded-2xl border-zinc-600  focus:outline-0 font-normal text-base bg-[#FFFFFF] shadow-[0_1px_3px_rgba(80,80,80,0.5)]"
+            buttonTitle="Add"
             onSubmit={handleCreateCard}
             onClose={() => setIsAddingCard(false)}
           />

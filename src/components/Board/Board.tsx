@@ -1,6 +1,6 @@
 import type { IBoard } from '../../types/IBoard';
 import { useDispatch } from 'react-redux';
-import { useCards } from '../../hooks/useCards';
+import { useFilteredCards } from '../../hooks/useFilteredCards';
 import { updateCardBoard } from '../../store/cardsSlice';
 import { BoardHeader } from './BoardHeader';
 import { BoardMain } from './BoardMain';
@@ -15,8 +15,7 @@ interface BoardProps {
 
 export function Board({ board, isDetailed = false }: BoardProps) {
   const dispatch = useDispatch();
-  const cards = useCards();
-  const filteredCards = cards.filter((cards) => cards.boardId === board.id);
+  const filteredCards = useFilteredCards(board.id);
 
   function handleDragOver(event: React.DragEvent<HTMLLIElement>) {
     event.preventDefault();

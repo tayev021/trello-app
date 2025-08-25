@@ -9,10 +9,10 @@ import { Input } from '../forms/Input';
 import { Button } from '../forms/Button';
 import {
   HiOutlineAdjustmentsHorizontal,
-  HiOutlineArrowLeft,
   HiOutlinePencil,
   HiOutlineTrash,
 } from 'react-icons/hi2';
+import { BackButton } from '../UI/BackButton';
 
 export function DetailedBoardHeader() {
   const [isUpdatingTitle, setIsUpdatingTitle] = useState(false);
@@ -36,12 +36,7 @@ export function DetailedBoardHeader() {
       className="grid grid-cols-[max-content_1fr_min-content_min-content_min-content] gap-4 items-center py-3 px-5 pr-4"
       style={isUpdatingTitle ? { gridTemplateColumns: 'max-content 1fr' } : {}}
     >
-      <button
-        className="flex items-center gap-2 py-0.5 px-3 rounded-2xl hover:bg-[#FFFFFF] hover:shadow-[0_1px_3px_rgba(80,80,80,0.5)] active:bg-blue-200 cursor-pointer"
-        onClick={() => navigate(-1)}
-      >
-        <HiOutlineArrowLeft /> Go Back
-      </button>
+      <BackButton />
 
       {isUpdatingTitle ? (
         <>

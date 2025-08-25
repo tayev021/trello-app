@@ -1,11 +1,11 @@
 import { useParams } from 'react-router';
-import { useStoreSelector } from '../../hooks/useStoreSelector';
-import { Board } from '../../components/Board/Board';
+import { useBoards } from '../../hooks/useBoards';
 import { BoardPageNotFound } from './BoardPageNotFound';
+import { Board } from '../../components/Board/Board';
 
 export function BoardPage() {
   const { boardId } = useParams();
-  const boards = useStoreSelector((store) => store.boards.boards);
+  const boards = useBoards();
   const board = boards.find((board) => board.id === boardId);
 
   if (!board) return <BoardPageNotFound />;

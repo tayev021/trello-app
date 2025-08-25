@@ -1,9 +1,9 @@
-import { useStoreSelector } from '../../hooks/useStoreSelector';
+import { useBoards } from '../../hooks/useBoards';
 import { Board } from './Board';
 import { BoardCreator } from './BoardCreator';
 
 export function Boards() {
-  const boards = useStoreSelector((store) => store.boards.boards);
+  const boards = useBoards();
 
   return (
     <ul className="grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-5">

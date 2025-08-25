@@ -1,13 +1,14 @@
+import { useBoards } from '../../hooks/useBoards';
+import { useStoreSelector } from '../../hooks/useStoreSelector';
+import { StatisticCard } from './StatisticCard';
 import {
   HiOutlineCalendarDateRange,
   HiOutlineChartBar,
   HiOutlineDocument,
 } from 'react-icons/hi2';
-import { StatisticCard } from './StatisticCard';
-import { useStoreSelector } from '../../hooks/useStoreSelector';
 
 export function StatisticCards() {
-  const boards = useStoreSelector((store) => store.boards.boards);
+  const boards = useBoards();
   const cards = useStoreSelector((store) => store.cards.cards);
   const taskQuantity = cards.reduce(
     (acc, card) => (acc += card.tasks.length),

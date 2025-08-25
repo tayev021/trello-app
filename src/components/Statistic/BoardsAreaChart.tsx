@@ -1,6 +1,6 @@
 import type { IBoard } from '../../types/IBoard';
 import { useBoards } from '../../hooks/useBoards';
-import { useStoreSelector } from '../../hooks/useStoreSelector';
+import { useCards } from '../../hooks/useCards';
 import {
   Area,
   AreaChart,
@@ -23,7 +23,7 @@ const toPercent = (decimal: number) => `${(decimal * 100).toFixed(2)}%`;
 
 export function BoardsAreaChart() {
   const boards = useBoards();
-  const cards = useStoreSelector((store) => store.cards.cards);
+  const cards = useCards();
 
   const barDataObject = boards.reduce((acc: IAreaDataObject, board) => {
     const name =

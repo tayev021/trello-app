@@ -1,6 +1,6 @@
 import type { IBoard } from '../../types/IBoard';
 import { useBoards } from '../../hooks/useBoards';
-import { useStoreSelector } from '../../hooks/useStoreSelector';
+import { useCards } from '../../hooks/useCards';
 import { getBrighterColor } from '../../utils/getBrighterColor';
 import { Table } from '../UI/Table/Table';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
@@ -17,7 +17,7 @@ type IPieDataObject = {
 
 export function BoardsPieChart() {
   const boards = useBoards();
-  const cards = useStoreSelector((store) => store.cards.cards);
+  const cards = useCards();
 
   const pieDataObject = boards.reduce((acc: IPieDataObject, board) => {
     acc[board.id] = {

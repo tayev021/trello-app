@@ -1,5 +1,5 @@
 import { useBoards } from '../../hooks/useBoards';
-import { useStoreSelector } from '../../hooks/useStoreSelector';
+import { useCards } from '../../hooks/useCards';
 import { StatisticCard } from './StatisticCard';
 import {
   HiOutlineCalendarDateRange,
@@ -9,7 +9,7 @@ import {
 
 export function StatisticCards() {
   const boards = useBoards();
-  const cards = useStoreSelector((store) => store.cards.cards);
+  const cards = useCards();
   const taskQuantity = cards.reduce(
     (acc, card) => (acc += card.tasks.length),
     0

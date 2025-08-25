@@ -1,10 +1,10 @@
-import { useStoreSelector } from '../../hooks/useStoreSelector';
-import { Cell, Pie, PieChart, Tooltip } from 'recharts';
-import { Table } from '../UI/Table/Table';
+import { useCards } from '../../hooks/useCards';
 import type { ITask } from '../../types/ITask';
+import { Table } from '../UI/Table/Table';
+import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 
 export function TasksPieChart() {
-  const cards = useStoreSelector((store) => store.cards.cards);
+  const cards = useCards();
   const tasks = cards.reduce(
     (acc: ITask[], card) => [...acc, ...card.tasks],
     []

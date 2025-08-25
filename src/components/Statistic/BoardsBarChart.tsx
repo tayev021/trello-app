@@ -1,6 +1,6 @@
 import type { IBoard } from '../../types/IBoard';
 import { useBoards } from '../../hooks/useBoards';
-import { useStoreSelector } from '../../hooks/useStoreSelector';
+import { useCards } from '../../hooks/useCards';
 import {
   Bar,
   BarChart,
@@ -23,7 +23,7 @@ type IBarDataObject = {
 
 export function BoardsBarChart() {
   const boards = useBoards();
-  const cards = useStoreSelector((store) => store.cards.cards);
+  const cards = useCards();
 
   const barDataObject = boards.reduce((acc: IBarDataObject, board) => {
     const name =

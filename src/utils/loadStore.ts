@@ -12,7 +12,7 @@ const initialBoards: IBoard[] = [
   },
   {
     id: '2',
-    title: 'In Progress',
+    title: 'Work',
     bgColor: BGColors[3],
   },
   {

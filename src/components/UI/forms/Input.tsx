@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
-import { useOutsideClick } from '../../hooks/useOutsideClick';
+import { useOutsideClick } from '../../../hooks/useOutsideClick';
 
 interface InputProps {
   className: string;

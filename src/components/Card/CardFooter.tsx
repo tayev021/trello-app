@@ -1,7 +1,7 @@
 import { useCardContext } from '../../hooks/useCardContext';
 import { useDispatch } from 'react-redux';
 import { createTask } from '../../store/cardsSlice';
-import { Input } from '../forms/Input';
+import { Input } from '../UI/forms/Input';
 
 export function CardFooter() {
   const { card, setIsAddingTask } = useCardContext();

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useBoardContext } from '../../hooks/useBoardContext';
 import { useDispatch } from 'react-redux';
 import { createCard } from '../../store/cardsSlice';
-import { Input } from '../forms/Input';
+import { Input } from '../UI/forms/Input';
 import { HiPlus } from 'react-icons/hi2';
 
 export function BoardFooter() {

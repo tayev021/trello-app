@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router';
 import { removeBoard, updateBoardTitle } from '../../store/boardsSlice';
 import { Modal } from '../Modal/Modal';
 import { Menu } from '../Menu/Menu';
-import { Input } from '../forms/Input';
-import { Button } from '../forms/Button';
+import { Input } from '../UI/forms/Input';
+import { Button } from '../UI/forms/Button';
 import {
   HiOutlineAdjustmentsHorizontal,
   HiOutlinePencil,

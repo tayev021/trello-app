@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useCardContext } from '../../hooks/useCardContext';
 import { useDispatch } from 'react-redux';
 import { removeCard, updateCardTitle } from '../../store/cardsSlice';
-import { Input } from '../forms/Input';
-import { Button } from '../forms/Button';
+import { Input } from '../UI/forms/Input';
+import { Button } from '../UI/forms/Button';
 import { Modal } from '../Modal/Modal';
 import {
   HiOutlinePencil,

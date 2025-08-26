@@ -8,7 +8,7 @@ import {
   toggleTaskStatus,
   removeTask,
 } from '../../store/cardsSlice';
-import { Input } from '../forms/Input';
+import { Input } from '../UI/forms/Input';
 import { Modal } from '../Modal/Modal';
 import { HiOutlinePencil, HiXMark } from 'react-icons/hi2';
 import styles from './Task.module.css';

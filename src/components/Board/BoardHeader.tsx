@@ -5,7 +5,7 @@ import { removeBoard, updateBoardTitle } from '../../store/boardsSlice';
 import { Modal } from '../Modal/Modal';
 import { Menu } from '../Menu/Menu';
 import { Link } from 'react-router';
-import { Input } from '../forms/Input';
+import { Input } from '../UI/forms/Input';
 import {
   HiOutlineEllipsisHorizontal,
   HiOutlineEye,

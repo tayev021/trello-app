@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useCardContext } from '../../hooks/useCardContext';
 import { useDispatch } from 'react-redux';
 import { updateCardTitle } from '../../store/cardsSlice';
-import { Input } from '../forms/Input';
+import { Input } from '../UI/forms/Input';
 import { HiOutlinePlus } from 'react-icons/hi2';
 
 export function CardHeader() {

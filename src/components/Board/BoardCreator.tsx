@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createBoard } from '../../store/boardsSlice';
-import { Input } from '../forms/Input';
+import { Input } from '../UI/forms/Input';
 import { HiOutlineCursorArrowRays } from 'react-icons/hi2';
 
 export function BoardCreator() {

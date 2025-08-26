@@ -1,6 +1,4 @@
-import type { IBoard } from '../../types/IBoard';
-import { useBoards } from '../../hooks/useBoards';
-import { useCards } from '../../hooks/useCards';
+import type { IBoardData } from '../../types/IBoardData';
 import {
   Area,
   AreaChart,
@@ -11,45 +9,17 @@ import {
   YAxis,
 } from 'recharts';
 
-type IAreaDataObject = {
-  [key: IBoard['id']]: {
-    name: IBoard['title'];
-    ['Tasks In Progress']: number;
-    ['Tasks Done']: number;
-  };
-};
+interface IBoardsAreaChartProps {
+  data: {
+    name: IBoardData['name'];
+    ['Tasks In Progress']: IBoardData['Tasks In Progress'];
+    ['Tasks Done']: IBoardData['Tasks Done'];
+  }[];
+}
 
 const toPercent = (decimal: number) => `${(decimal * 100).toFixed(2)}%`;
 
-export function BoardsAreaChart() {
-  const boards = useBoards();
-  const cards = useCards();
-
-  const barDataObject = boards.reduce((acc: IAreaDataObject, board) => {
-    const name =
-      board.title.length > 8 ? board.title.slice(0, 5) + '...' : board.title;
-
-    acc[board.id] = {
-      name: name,
-      ['Tasks In Progress']: 0,
-      ['Tasks Done']: 0,
-    };
-
-    return acc;
-  }, {});
-
-  cards.forEach((card) => {
-    card.tasks.forEach((task) => {
-      if (task.isDone) {
-        barDataObject[card.boardId]['Tasks Done']++;
-      } else {
-        barDataObject[card.boardId]['Tasks In Progress']++;
-      }
-    });
-  });
-
-  const data = Object.values(barDataObject);
-
+export function BoardsAreaChart({ data }: IBoardsAreaChartProps) {
   return (
     <div className="flex flex-col p-4 rounded-lg bg-[#ffffff] shadow-[0_1px_3px_rgba(80,80,80,0.5)]">
       <h3 className="mb-4 font-semibold text-base text-blue-900 text-center uppercase">

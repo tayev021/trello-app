@@ -1,9 +1,5 @@
-import { BoardsPieChart } from '../../components/Statistic/BoardsPieChart';
 import { BackButton } from '../../components/UI/BackButton';
-import { StatisticCards } from '../../components/Statistic/StatisticCards';
-import { TasksPieChart } from '../../components/Statistic/TasksPieChart';
-import { BoardsBarChart } from '../../components/Statistic/BoardsBarChart';
-import { BoardsAreaChart } from '../../components/Statistic/BoardsAreaChart';
+import { Statistic } from '../../components/Statistic/Statistic';
 
 export function StatisticPage() {
   return (
@@ -15,13 +11,7 @@ export function StatisticPage() {
         </h2>
       </header>
       <main>
-        <StatisticCards />
-        <div className="grid grid-cols-[repeat(auto-fit,_minmax(450px,1fr))] gap-4">
-          <BoardsPieChart />
-          <TasksPieChart />
-          <BoardsBarChart />
-          <BoardsAreaChart />
-        </div>
+        <Statistic />
       </main>
     </div>
   );

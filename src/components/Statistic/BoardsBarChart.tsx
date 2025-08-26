@@ -1,6 +1,4 @@
-import type { IBoard } from '../../types/IBoard';
-import { useBoards } from '../../hooks/useBoards';
-import { useCards } from '../../hooks/useCards';
+import type { IBoardData } from '../../types/IBoardData';
 import {
   Bar,
   BarChart,
@@ -13,43 +11,15 @@ import {
   YAxis,
 } from 'recharts';
 
-type IBarDataObject = {
-  [key: IBoard['id']]: {
-    name: IBoard['title'];
-    ['Tasks In Progress']: number;
-    ['Tasks Done']: number;
-  };
-};
+interface IBoardsBarChartProps {
+  data: {
+    name: IBoardData['name'];
+    ['Tasks In Progress']: IBoardData['Tasks In Progress'];
+    ['Tasks Done']: IBoardData['Tasks Done'];
+  }[];
+}
 
-export function BoardsBarChart() {
-  const boards = useBoards();
-  const cards = useCards();
-
-  const barDataObject = boards.reduce((acc: IBarDataObject, board) => {
-    const name =
-      board.title.length > 8 ? board.title.slice(0, 5) + '...' : board.title;
-
-    acc[board.id] = {
-      name: name,
-      ['Tasks In Progress']: 0,
-      ['Tasks Done']: 0,
-    };
-
-    return acc;
-  }, {});
-
-  cards.forEach((card) => {
-    card.tasks.forEach((task) => {
-      if (task.isDone) {
-        barDataObject[card.boardId]['Tasks Done']++;
-      } else {
-        barDataObject[card.boardId]['Tasks In Progress']++;
-      }
-    });
-  });
-
-  const data = Object.values(barDataObject);
-
+export function BoardsBarChart({ data }: IBoardsBarChartProps) {
   return (
     <div className="flex flex-col p-4 rounded-lg bg-[#ffffff] shadow-[0_1px_3px_rgba(80,80,80,0.5)]">
       <h3 className="mb-4 font-semibold text-base text-blue-900 text-center uppercase">

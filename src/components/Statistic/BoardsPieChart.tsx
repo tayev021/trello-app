@@ -1,42 +1,18 @@
-import type { IBoard } from '../../types/IBoard';
-import { useBoards } from '../../hooks/useBoards';
-import { useCards } from '../../hooks/useCards';
-import { getBrighterColor } from '../../utils/getBrighterColor';
+import type { IBoardData } from '../../types/IBoardData';
 import { Table } from '../UI/Table/Table';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 
-type IPieDataObject = {
-  [key: IBoard['id']]: {
-    id: IBoard['id'];
-    name: IBoard['title'];
-    color: string;
+interface IBoardsPieChartProps {
+  data: {
+    id: IBoardData['id'];
+    name: IBoardData['name'];
+    color: IBoardData['color'];
     brighterColor: string;
-    tasksNumber: number;
-  };
-};
+    tasksQuantity: number;
+  }[];
+}
 
-export function BoardsPieChart() {
-  const boards = useBoards();
-  const cards = useCards();
-
-  const pieDataObject = boards.reduce((acc: IPieDataObject, board) => {
-    acc[board.id] = {
-      id: board.id,
-      name: board.title,
-      color: board.bgColor,
-      brighterColor: getBrighterColor(board.bgColor),
-      tasksNumber: 0,
-    };
-
-    return acc;
-  }, {});
-
-  cards.forEach(
-    (card) => (pieDataObject[card.boardId].tasksNumber += card.tasks.length)
-  );
-
-  const data = Object.values(pieDataObject);
-
+export function BoardsPieChart({ data }: IBoardsPieChartProps) {
   return (
     <div className="flex flex-col p-4 rounded-lg bg-[#ffffff] shadow-[0_1px_3px_rgba(80,80,80,0.5)]">
       <h3 className="mb-4 font-semibold text-base text-blue-900 text-center uppercase">
@@ -51,13 +27,13 @@ export function BoardsPieChart() {
             </Table.Row>
           </thead>
           <tbody className="">
-            {data.map((i) => (
-              <Table.Row key={i.id}>
-                <Table.Cell style={{ backgroundColor: `${i.color}` }}>
-                  {i.name}
+            {data.map((item) => (
+              <Table.Row key={item.id}>
+                <Table.Cell style={{ backgroundColor: `${item.color}` }}>
+                  {item.name}
                 </Table.Cell>
-                <Table.Cell style={{ backgroundColor: `${i.color}` }}>
-                  {i.tasksNumber}
+                <Table.Cell style={{ backgroundColor: `${item.color}` }}>
+                  {item.tasksQuantity}
                 </Table.Cell>
               </Table.Row>
             ))}
@@ -73,10 +49,10 @@ export function BoardsPieChart() {
               animationBegin={0}
               animationDuration={1000}
               fill="#8884d8"
-              dataKey="tasksNumber"
+              dataKey="tasksQuantity"
             >
-              {data.map((i) => (
-                <Cell key={`cell-${i.name}`} fill={i.brighterColor} />
+              {data.map((item) => (
+                <Cell key={`cell-${item.name}`} fill={item.brighterColor} />
               ))}
             </Pie>
             <Tooltip />

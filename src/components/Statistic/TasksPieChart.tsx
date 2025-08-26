@@ -1,34 +1,11 @@
-import { useCards } from '../../hooks/useCards';
-import type { ITask } from '../../types/ITask';
 import { Table } from '../UI/Table/Table';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 
-export function TasksPieChart() {
-  const cards = useCards();
-  const tasks = cards.reduce(
-    (acc: ITask[], card) => [...acc, ...card.tasks],
-    []
-  );
+interface ITasksPieChartProps {
+  data: { name: string; quantity: number }[];
+}
 
-  const data = [
-    {
-      name: 'In Progress',
-      quantity: 0,
-      color: '#fef08a',
-      brighterColor: '#facc15',
-    },
-    {
-      name: 'Done',
-      quantity: 0,
-      color: '#86efac',
-      brighterColor: '#22c55e',
-    },
-  ];
-
-  tasks.forEach((task) =>
-    task.isDone ? data[1].quantity++ : data[0].quantity++
-  );
-
+export function TasksPieChart({ data }: ITasksPieChartProps) {
   return (
     <div className="flex flex-col p-4 rounded-lg bg-[#ffffff] shadow-[0_1px_3px_rgba(80,80,80,0.5)]">
       <h3 className="mb-4 font-semibold text-base text-blue-900 text-center uppercase">
@@ -43,16 +20,22 @@ export function TasksPieChart() {
             </Table.Row>
           </thead>
           <tbody>
-            {data.map((item) => (
-              <Table.Row key={item.name}>
-                <Table.Cell style={{ backgroundColor: `${item.color}` }}>
-                  {item.name}
-                </Table.Cell>
-                <Table.Cell style={{ backgroundColor: `${item.color}` }}>
-                  {item.quantity}
-                </Table.Cell>
-              </Table.Row>
-            ))}
+            <Table.Row>
+              <Table.Cell style={{ backgroundColor: '#fef08a' }}>
+                {data[0].name}
+              </Table.Cell>
+              <Table.Cell style={{ backgroundColor: '#fef08a' }}>
+                {data[0].quantity}
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell style={{ backgroundColor: '#86efac' }}>
+                {data[1].name}
+              </Table.Cell>
+              <Table.Cell style={{ backgroundColor: '#86efac' }}>
+                {data[1].quantity}
+              </Table.Cell>
+            </Table.Row>
           </tbody>
         </Table>
         <div className="flex justify-center">
@@ -69,9 +52,8 @@ export function TasksPieChart() {
               fill="#8884d8"
               dataKey="quantity"
             >
-              {data.map((item) => (
-                <Cell key={`cell-${item.name}`} fill={item.brighterColor} />
-              ))}
+              <Cell key={`cell-inProgress`} fill="#facc15" />
+              <Cell key={`cell-done`} fill="#22c55e" />
             </Pie>
             <Tooltip />
           </PieChart>
